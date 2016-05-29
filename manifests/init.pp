@@ -42,7 +42,8 @@
 #
 # Copyright 2016 Your name here, unless otherwise noted.
 #
-class essential {
 
+# versioncmp(a, b)  This function returns: 1 a > b  /  0 a = b / -1 a < b
+class essential {
 
 }
