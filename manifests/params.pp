@@ -20,24 +20,31 @@
 
 class essential::params {
 
-  $package_ensure = 'present'
 
-  # -----------------------------------------------------------------
+  # . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
   # 1.PACKAGES : Definition what essential packages must be installad
-  #
-    # ----------------------------------------> RedHat´s flavor
-    $package_name_centos       = [ 'tree', 'nmap', 'tcpdump' ]
-    $package_name_xenserverver = [ 'tree', 'nmap', 'tcpdump' ]
-    # ----------------------------------------> Debian´s flavors
-    $package_name_debian       = [ 'tree', 'nmap', 'tcpdump' ]
-    $package_name_ubuntu       = [ 'tree', 'nmap', 'tcpdump' ]
-    # ----------------------------------------> Others
-    $package_name_gentoo       = [ 'tree', 'nmap', 'tcpdump' ]
-    $package_name_archlinux    = [ 'tree', 'nmap', 'tcpdump' ]
-  #
-  # -----------------------------------------------------------------
+  # .          .          .          .          .          .        .
+  $package_name_centos       = [ 'tree', 'nmap', 'tcpdump' ]
+  $package_name_xenserverver = [ 'tree', 'nmap', 'tcpdump' ]
+  $package_name_debian       = [ 'tree', 'nmap', 'tcpdump' ]
+  $package_name_ubuntu       = [ 'tree', 'nmap', 'tcpdump' ]
+  $package_name_gentoo       = [ 'tree', 'nmap', 'tcpdump' ]
+  $package_name_archlinux    = [ 'tree', 'nmap', 'tcpdump' ]
+
+
+  # . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+  # 2.CONFIG : Definition what default configs must be apllied
+  # .          .          .          .          .          .        .
+  $selinux = "disabledn"
+
+
+
+
+
+  # . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 
   case $::osfamily {
+    # ----------------------------------------> RedHat / CentOS
     'RedHat': {
       if versioncmp($::operatingsystemrelease, '7.0') >= 0 {
         $debug = 'centos7'
@@ -45,13 +52,14 @@ class essential::params {
       } else {
         if ($::operatingsystem == 'XenServer'){
           $debug = 'xenserver'
-          $package_name = $package_name_xenserverver 
+          $package_name = $package_name_xenserverver
         } else {
           $package_name = $package_name_centos
           $debug = 'centos6'
         }
       }
     }
+    # ----------------------------------------> Debian
     'Debian': {
       case $::operatingsystem {
         'Debian': {
@@ -64,6 +72,7 @@ class essential::params {
           }
         }
 
+    # ----------------------------------------> Ubuntu
         'Ubuntu': {
           if versioncmp($::operatingsystemrelease, '14.10') >= 0 {
             $debug = 'ubuntu'
@@ -76,21 +85,24 @@ class essential::params {
         }
         default: {
           $debug = 'ubuntu'
-          $package_name = $package_name_ubuntu 
+          $package_name = $package_name_ubuntu
         }
       }
     }
 
     default: {
       case $::operatingsystem {
+    # ----------------------------------------> Archlinux
         'Archlinux': {
           $debug = 'Archlinux'
           $package_name = $package_name_archlinux
         }
+    # ----------------------------------------> Gentoo
         'Gentoo': {
           $debug = 'Gentoo'
           $package_name  = $package_name_gentoo
         }
+    # ---------------------------------------->  not currently supported
         default: {
           $package_name = undef
           fail("${title}: Kernel '${::kernel}' is not currently supported")
