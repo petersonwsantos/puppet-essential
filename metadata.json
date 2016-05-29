@@ -1,0 +1,15 @@
+{
+  "name": "petersonwsantos-essential",
+  "version": "0.1.0",
+  "author": "petersonwsantos",
+  "summary": "This module define default configuration for S.O. : Packages, Services and Configuration.",
+  "license": "Apache-2.0",
+  "source": "https://github.com/petersonwsantos/puppet-essential",
+  "project_page": "https://github.com/petersonwsantos/puppet-essential/wiki",
+  "issues_url": "https://github.com/petersonwsantos/puppet-essential/issues",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ],
+  "data_provider": null
+}
+
