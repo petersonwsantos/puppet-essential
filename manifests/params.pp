@@ -20,14 +20,23 @@
 
 class essential::params {
 
-  $package_ensure = 'present'
 
-  $package_name_centos       = [ 'tree', 'nmap', 'tcpdump' ]
-  $package_name_xenserverver = [ 'tree', 'nmap', 'tcpdump' ]
-  $package_name_debian       = [ 'tree', 'nmap', 'tcpdump' ]
-  $package_name_ubuntu       = [ 'tree', 'nmap', 'tcpdump' ]
+# -----------------------------------------------------------------
+# 1.PACKAGES : Definition what essential packages must be installad
+#
+# RedHat´s flavors ----------------------------------------
+  $package_name_centos7      = [ 'tree', 'nmap', 'tcpdump' ]
+  $package_name_centos6      = $package_name_centos7
+  $package_name_xenserverver = $package_name_centos7
+# Debian´s flavors ----------------------------------------
+  $package_name_debian8      = [ 'tree', 'nmap', 'tcpdump' ]
+  $package_name_debian7      = $package_name_debian7
+  $package_name_ubuntu       = $package_name_debian7
+# Others           ----------------------------------------
   $package_name_gentoo       = [ 'tree', 'nmap', 'tcpdump' ]
   $package_name_archlinux    = [ 'tree', 'nmap', 'tcpdump' ]
+#
+# -----------------------------------------------------------------
 
   case $::osfamily {
     'RedHat': {
@@ -35,8 +44,13 @@ class essential::params {
         $debug = 'centos7'
         $package_name = $package_name_centos
       } else {
-        $debug = 'centos5ou6'
-        $package_name = $package_name_centos
+        if ($::operatingsystem == 'XenServer'){
+          $debug = 'xenserver'
+          $package_name = $package_name_centos
+        } else {
+          $package_name = $package_name_centos
+          $debug = 'centos6'
+        }
       }
     }
     'Debian': {
@@ -63,7 +77,7 @@ class essential::params {
         }
         default: {
           $debug = 'ubuntu'
-          $package_name = $package_name_ubuntu 
+          $package_name = $package_name_ubuntu
         }
       }
     }
@@ -86,6 +100,4 @@ class essential::params {
     }
   }
 
-  #notify { "O SO reconhecido é => $debug ": }
-  #package { $package_name: ensure => 'installed' }
 }
