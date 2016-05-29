@@ -23,13 +23,12 @@
 # Copyright
 # ---------
 #
-# Copyright 2016 Peterson W Santos 
+# Copyright 2016 Peterson W Santos
 #
 
 class essential::packages(
     $ensure       = running,
-    $package_ensure = 'present'
-    $service_name = $::essential::params::service_name,
+    $package_ensure = 'present',
     $package_name = $::essential::params::package_name,
 ) inherits ::essential::params {
   notify { "O SO reconhecido é => $debug ": }

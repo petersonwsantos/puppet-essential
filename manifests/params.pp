@@ -18,7 +18,7 @@
 # versioncmp(a, b)  This function returns: 1 a > b  /  0 a = b / -1 a < b
 
 
-class essential::params.pp {
+class essential::params {
 
   $package_ensure = 'present'
 
@@ -35,7 +35,7 @@ class essential::params.pp {
         $debug = 'centos7'
         $package_name = $package_name_centos
       } else {
-        $package_name = 'centos5ou6'
+        $debug = 'centos5ou6'
         $package_name = $package_name_centos
       }
     }
