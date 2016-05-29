@@ -45,7 +45,7 @@ class essential::params {
       } else {
         if ($::operatingsystem == 'XenServer'){
           $debug = 'xenserver'
-          $package_name = $package_name_centos
+          $package_name = $package_name_xenserverver 
         } else {
           $package_name = $package_name_centos
           $debug = 'centos6'
